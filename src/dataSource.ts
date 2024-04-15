@@ -1,10 +1,10 @@
 import { DataSource } from 'typeorm'
-// import { Book } from './entities/books.entity'
+import { Country } from './entities/country.entity'
 
 export default new DataSource({
   type: 'sqlite',
   database: './bdd/checkpoint.sqlite',
-  entities: [],
+  entities: [Country],
   synchronize: true,
   // logging: ["query","error"],
   logging: true,
