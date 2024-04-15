@@ -10,13 +10,13 @@ export class Country extends BaseEntity {
   id!: number
 
   @Field()
-  @Column({ length: 2 })
-  @Length(5, 50, { message: 'Le titre doit contenir entre 5 et 50 caractères' })
+  @Column({ length: 2, unique: true })
+  @Length(2, 50, { message: 'Le nom  doit contenir entre 5 et 50 caractères' })
   name!: string
 
   @Field()
-  @Column({ length: 3, nullable: true })
-  @Length(0, 3, { message: 'Le titre doit contenir entre 5 et 50 caractères' })
+  @Column({ length: 2, nullable: true })
+  @Length(0, 2, { message: 'Le code doit contenir entre 2 et 3 caractères' })
   code!: string
 
   @Field()
