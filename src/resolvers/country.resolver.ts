@@ -1,3 +1,4 @@
+import { Length } from 'class-validator'
 import { Resolver, Mutation, Query, Arg } from 'type-graphql'
 import { Country, CountryCreateInput } from '../entities/country.entity'
 import { validate } from 'class-validator'
@@ -15,10 +16,18 @@ export class CountryResolver {
     return countries
   }
 
-  @Query(() => [Country], { nullable: true })
-  async country(): Promise<Country[]> {
-    const countries = await Country.find()
-    return countries
+  @Query(() => Country, { nullable: true })
+  async countryByCode(@Arg('code') code: string): Promise<Country | null> {
+    if (code.length !== 2) {
+      throw new Error('Code must be 2 characters long')
+    }
+    const country = await Country.findOne({ where: { code } })
+    // console.log('-------------country', country) // debug
+    if (country === undefined) {
+      return null
+    } else {
+      return country
+    }
   }
 
   @Mutation(() => Country)
