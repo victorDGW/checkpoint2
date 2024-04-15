@@ -26,12 +26,12 @@ export class Country extends BaseEntity {
 
 @InputType()
 export class CountryCreateInput {
-  @Field()
+  @Field({ nullable: true })
   name: string
 
-  @Field()
+  @Field({ nullable: true })
   code: string
 
-  @Field()
+  @Field({ nullable: true })
   emoji: string
 }
