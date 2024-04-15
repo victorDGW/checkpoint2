@@ -18,8 +18,8 @@ export class CountryResolver {
 
   @Query(() => Country, { nullable: true })
   async countryByCode(@Arg('code') code: string): Promise<Country | null> {
-    if (code.length !== 2) {
-      throw new Error('Code must be 2 characters long')
+    if (code.length < 2 || code.length > 3) {
+      throw new Error('Code must be  2 or 3  characters long')
     }
     const country = await Country.findOne({ where: { code } })
     // console.log('-------------country', country) // debug
@@ -27,6 +27,20 @@ export class CountryResolver {
       return null
     } else {
       return country
+    }
+  }
+
+  @Query(() => [Country])
+  async countriesByContinentCode(
+    @Arg('continent_code') continentCode: string
+  ): Promise<Country[] | null> {
+    try {
+      const country = await Country.find({
+        where: { continentCode: continentCode },
+      })
+      return country
+    } catch (error) {
+      throw new Error(`error occured ${JSON.stringify(error)}`)
     }
   }
 

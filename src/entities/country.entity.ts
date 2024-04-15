@@ -10,28 +10,35 @@ export class Country extends BaseEntity {
   id!: number
 
   @Field()
-  @Column({ length: 2, unique: true })
-  @Length(2, 50, { message: 'Le nom  doit contenir entre 5 et 50 caractères' })
+  @Column({ length: 50, unique: true })
+  @Length(2, 50, { message: 'Le nom  doit contenir entre 2 et 50 caractères' })
   name!: string
 
   @Field()
-  @Column({ length: 2, nullable: true })
-  @Length(0, 2, { message: 'Le code doit contenir entre 2 et 3 caractères' })
+  @Column({ length: 3, nullable: true })
+  @Length(2, 3, { message: 'Le code doit contenir entre 2 et 3 caractères' })
   code!: string
 
   @Field()
   @Column({ length: 10, nullable: true })
   emoji!: string
+
+  @Field({ nullable: true })
+  @Column({ length: 255, nullable: true })
+  continentCode!: string
 }
 
 @InputType()
 export class CountryCreateInput {
-  @Field({ nullable: true })
+  @Field()
   name: string
 
-  @Field({ nullable: true })
+  @Field()
   code: string
 
   @Field({ nullable: true })
   emoji: string
+
+  @Field({ nullable: true })
+  continentCode: string
 }
